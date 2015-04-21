@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/main_logo"
+        android:src="@drawable/ic_launcher1" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ISeeTraffic"
+        android:textSize="30sp"
+        android:textColor="#27408b"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Authenticate"
+        android:onClick="onClickAuthorize"
+        android:textSize="20sp"></Button>-->
+    <!--<EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/status"
+        android:textSize="20sp"
+        android:hint="What's up?"></EditText>-->
+    <!--<TextView
+        android:id="@+id/Help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#27408b"
+        android:text="Click TWEET TO SHARE TRAFFIC"
+        android:gravity="center"/>-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#27408b"
+        android:gravity="center_horizontal">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tweet"
+        android:onClick="onClickTweet"
+        android:textSize="20sp"
+        android:textColor="#27408b"></Button>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Tweet"
+        android:textSize="20sp"
+        android:textColor="#27408b"
+        android:onClick="onClickGetStatus"></Button>
+<!--     <Button
+         android:id="@+id/add"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Reports"
+         android:textSize="20sp"
+         android:textColor="#27408b"
+         android:onClick="onClick"/>-->
+        </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#27408b">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30sp"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="#ffffff"
+            android:text="ON:"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/textView03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30sp"
+            android:textColor="#ffffff"/>
+        <ListView
+            android:id="@+id/lasttry"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            </ListView>
+
+        <!--<ImageView
+            android:id="@+id/condition"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />-->
+        </LinearLayout>
+
+</LinearLayout>
