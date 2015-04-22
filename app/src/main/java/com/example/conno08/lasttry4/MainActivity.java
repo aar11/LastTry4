@@ -1,5 +1,4 @@
 package com.example.conno08.lasttry4;
-//import com.example.conno08.lasttry4.TextToSpeechActivity.*;
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
@@ -77,7 +76,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private ImageView accident;
     private TextView reports;
     private Button reportBtn;
-    private TextToSpeech tts;
     private ListView lastTry;
     private ArrayAdapter<String> listAdapter ;
     private static int id = 0;
@@ -130,49 +128,31 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             longitudeField.setText("Location not available");
         }
         //startVoiceRecognitionActivity();
-        //MySQLiteHelper db = new MySQLiteHelper(this);
-        //db.getAllTraffic();
-        //SQLiteDatabase db = null;
 
-        //Database object
+        //Database object - Reporting to log
         DatabaseHandler db = new DatabaseHandler(this);
         // Reading through all locations in the table
         Log.d("Reading: ", "Reading all Traffic..");
-        //List<TrafficInfo> traffics = db.getAllTraffic();
-        //reports = (ListView) findViewById(R.id.report);
-        /*for (TrafficInfo cn : traffics) {
+        List<TrafficInfo> traffics = db.getAllTraffic();
+        for (TrafficInfo cn : traffics) {
             String log = "Id: " + cn.getID() + " ,Location: " +
                     cn.getLocation();
             // Writing Contacts to log
             Log.d("Location: ", log);
-        }*/
+        }
 
-        /*Log.d("Number of Locations: ", "Getting locations..");
-        db.getTrafficCount();
-        String theCount = "The number of traffic reports made this week are " + db.getTrafficCount();
-        Log.d("The count is: ", theCount);*/
+        //Gets the number of times a traffic or accident is reported
         db.getTrafficCount();
         String theCount = "The number of traffic & accident reports made this week are " + db.getTrafficCount();
         Toast.makeText(this, " : " + theCount, Toast.LENGTH_LONG).show();
-        //List<TrafficInfo> traffics = db.getAllTraffic();
-        /*for(TrafficInfo cn: traffics) {
-            db.getAllTraffic(cn.getLocation());
-            String wohoo = " " + db.getAllTraffic(cn.getLocation());
-            String[] theaddresses = new String[]{wohoo};
-            ArrayList<String> addressList = new ArrayList<String>();
-            addressList.addAll(Arrays.asList(theaddresses));
-
-            listAdapter = new ArrayAdapter<String>(this, R.layout.simple_row, addressList);
-            lastTry.setAdapter(listAdapter);
-        }*/
-        /*db.getAllTraffic();
-        String wohoo = " ";
-        String[] theaddresses = new String[]{wohoo};
-        ArrayList<String> addressList = new ArrayList<String>();
-        addressList.addAll(Arrays.asList(theaddresses));
-
-        listAdapter = new ArrayAdapter<String>(this, R.layout.simple_row, addressList);
-        lastTry.setAdapter(listAdapter);*/
+        reportBtn = (Button) findViewById(R.id.report);
+        reportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,RecentReportsActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 
@@ -284,13 +264,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             //Gives the post an incrementing id
             id++;
             new PostStatusTask().execute(id + ": " + text1.getText().toString().toUpperCase() + " ON: " + addressField.getText().toString().toUpperCase() + "#ISeeTraffic");
-            //condition.setImageResource(R.drawable.traffic);
-            //Adds the address to the database
+            //Adds the location to the database
             db.addTraffic(new TrafficInfo(location));
         } else if (dataProtect.equals("accident")) {
             id++;
-            new PostStatusTask().execute(id + ": " + text1.getText().toString().toUpperCase() + " on: " + addressField.getText().toString().toUpperCase() + "#ISeeTraffic");
-            //condition.setImageResource(R.drawable.accident);
+            new PostStatusTask().execute(id + ": " + text1.getText().toString().toUpperCase() + " ON: " + addressField.getText().toString().toUpperCase() + "#ISeeTraffic");
+            //Adds the location to the database
             db.addTraffic(new TrafficInfo(location));
 
         } else {
@@ -298,9 +277,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             Toast.makeText(this, "Please say traffic or accident", Toast.LENGTH_LONG).show();
             return;
         }
-        //TextView database = (TextView) findViewById(R.id.database);
-        //String theDatabase = database.getText().toString();
-        //db.getAllTraffic();
     }
 
     //Checks status to see if you are authenticated
@@ -375,7 +351,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 // Make a Twitter object
                 oauthClient = new OAuthSignpostClient(OAUTH_KEY, OAUTH_SECRET, token,
                         tokenSecret);
-                twitter = new Twitter("MarkoGargenta", oauthClient);
+                twitter = new Twitter("ISeeTraffic", oauthClient);
 
                 Log.d(TAG, "token: " + token);
             } catch (OAuthMessageSignerException e) {

@@ -23,7 +23,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Table Columns
     private static final String KEY_ID = "id";
     private static final String KEY_LOCATION = "location";
-    //private static final String KEY_PH_NO = "phone_number";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,8 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_LOCATION, traffic.getLocation()); // Contact Name
-        //values.put(KEY_PH_NO, contact.getPhoneNumber()); // Contact Phone
+        values.put(KEY_LOCATION, traffic.getLocation()); // Traffic Location
 
         // Inserting Row
         db.insert(TABLE_THETRAFFIC, null, values);
@@ -72,10 +70,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        TrafficInfo contact = new TrafficInfo(Integer.parseInt(cursor.getString(0)),
+        TrafficInfo trafficinfo = new TrafficInfo(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1));
-        // return contact
-        return contact;
+        // return location
+        return trafficinfo;
     }
 
     //Gets all the locations
@@ -134,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT  * FROM " + TABLE_THETRAFFIC;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        //cursor.close();
+       // cursor.close();
 
         // return count
         return cursor.getCount();
